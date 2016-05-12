@@ -39,6 +39,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'plone.api',
+        'plone.app.multilingual<3.0',
         'Products.GenericSetup>=1.8.2',
         'setuptools',
     ],
