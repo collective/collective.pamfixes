@@ -1,0 +1,7 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+  <!-- ZCML declarations to override the default definitions -->
+  <includeOverrides package=".browser" file="overrides.zcml" />
+
+</configure>
