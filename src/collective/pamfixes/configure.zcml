@@ -6,26 +6,4 @@
 
   <includeDependencies package="." />
 
-  <genericsetup:registerProfile
-      name="default"
-      title="collective.pamfixes"
-      directory="profiles/default"
-      description="Installs the collective.pamfixes add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.post_install"
-      />
-
-  <genericsetup:registerProfile
-      name="uninstall"
-      title="collective.pamfixes (uninstall)"
-      directory="profiles/uninstall"
-      description="Uninstalls the collective.pamfixes add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.uninstall"
-      />
-
-  <utility
-      factory=".setuphandlers.HiddenProfiles"
-      name="collective.pamfixes-hiddenprofiles" />
-
 </configure>

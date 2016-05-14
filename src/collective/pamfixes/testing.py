@@ -21,7 +21,7 @@ class CollectivePamfixesLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.pamfixes)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'collective.pamfixes:default')
+        return
 
 
 COLLECTIVE_PAMFIXES_FIXTURE = CollectivePamfixesLayer()
