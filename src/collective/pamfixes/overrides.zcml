@@ -6,7 +6,7 @@
   <!-- Override the viewlet for alternate language meta tags -->
   <browser:viewlet
       name="plone.app.multilingual.alternate-languages"
-      for="plone.app.multilingual.interfaces.ITranslatable"
+      for=".interfaces.ITranslatable"
       manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
       class=".viewlets.CustomAlternateLanguagesViewlet"
       template="templates/alternate-languages.pt"
