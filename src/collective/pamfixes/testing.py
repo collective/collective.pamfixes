@@ -25,6 +25,7 @@ class CollectivePamfixesLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         self.loadZCML(package=collective.pamfixes)
+        self.loadZCML(name='testing.zcml', package=collective.pamfixes)
         self.loadZCML(name='overrides.zcml', package=collective.pamfixes)
 
     def setUpPloneSite(self, portal):

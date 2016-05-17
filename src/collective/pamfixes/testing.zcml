@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <includeDependencies package="." />
+  <include package="plone.app.dexterity" />
+
+  <genericsetup:registerProfile
+      name="testfixture"
+      title="Collective.PAMFixes - Testing"
+      directory="profiles/testfixture"
+      description="Installs testfixture environment for collective.pamfixes."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>
