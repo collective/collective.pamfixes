@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
-from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
-from plone.app.testing import applyProfile
-from plone.app.testing import FunctionalTesting
-from plone.app.testing import IntegrationTesting
-from plone.app.testing import PLONE_FIXTURE
-from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
+"""Test setup for collective.pamfixes"""
 
+# plone imports
+from plone.app.testing import (
+    applyProfile,
+    FunctionalTesting,
+    IntegrationTesting,
+    PLONE_FIXTURE,
+    PloneSandboxLayer,
+    setRoles,
+    TEST_USER_ID,
+)
+
+# local imports
 import collective.pamfixes
 
 
@@ -19,9 +25,13 @@ class CollectivePamfixesLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         self.loadZCML(package=collective.pamfixes)
+        self.loadZCML(name='overrides.zcml', package=collective.pamfixes)
 
     def setUpPloneSite(self, portal):
-        return
+        applyProfile(portal, 'collective.pamfixes:testfixture')
+
+        # Empower test user
+        setRoles(portal, TEST_USER_ID, ['Manager'])
 
 
 COLLECTIVE_PAMFIXES_FIXTURE = CollectivePamfixesLayer()
@@ -36,14 +46,4 @@ COLLECTIVE_PAMFIXES_INTEGRATION_TESTING = IntegrationTesting(
 COLLECTIVE_PAMFIXES_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(COLLECTIVE_PAMFIXES_FIXTURE,),
     name='CollectivePamfixesLayer:FunctionalTesting'
-)
-
-
-COLLECTIVE_PAMFIXES_ACCEPTANCE_TESTING = FunctionalTesting(
-    bases=(
-        COLLECTIVE_PAMFIXES_FIXTURE,
-        REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE
-    ),
-    name='CollectivePamfixesLayer:AcceptanceTesting'
 )
