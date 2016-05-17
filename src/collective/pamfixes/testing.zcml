@@ -13,4 +13,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <!-- GenericSetup Import Steps. -->
+  <!-- ========================== -->
+  <genericsetup:importStep
+      name="collective.pamfixes-testfixture-postInstall"
+      title="collective.pamfixes post_install_testfixture import step"
+      description="Post install import step from collective.pamfixes for tests."
+      handler=".setuphandlers.post_install_testfixture">
+    <depends name="portal_languages" />
+  </genericsetup:importStep>
+
 </configure>
