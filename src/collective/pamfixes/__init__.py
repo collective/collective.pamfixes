@@ -3,6 +3,8 @@
 
 import logging
 
-log = logging.getLogger('collective.pamfixes')
+logger = logging.getLogger('collective.pamfixes')
 
-log.warning('Patching alternate languages viewlet for plone.app.multilingual')
+logger.warning(
+    'Patching alternate languages viewlet for plone.app.multilingual.'
+)
