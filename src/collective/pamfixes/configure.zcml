@@ -4,4 +4,12 @@
 
   <includeDependencies package="." />
 
+  <genericsetup:registerProfile
+      name="testfixture"
+      title="Collective.PAMFixes - Testing"
+      directory="profiles/testfixture"
+      description="Installs testfixture environment for collective.pamfixes."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 </configure>
