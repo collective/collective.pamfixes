@@ -2,22 +2,26 @@
 """collective.pamfixes interfaces."""
 
 # python imports
-import pkg_resources
-from pkg_resources import parse_version
+from pkg_resources import (
+    get_distribution,
+    parse_version,
+)
 
 
-pam_distribution = pkg_resources.get_distribution('plone.app.multilingual')
+pam_distribution = get_distribution('plone.app.multilingual')
 pam_version = pam_distribution.version
 
 # version-dependent import
 if parse_version(pam_version) < parse_version('2.0'):
     from plone.multilingual.interfaces import (
         ITranslatable,
-        ITranslationManager)
+        ITranslationManager,
+    )
 else:
     from plone.app.multilingual.interfaces import (
         ITranslatable,
-        ITranslationManager)
+        ITranslationManager,
+    )
 
-ITranslatable  # noqa
-ITranslationManager  # noqa
+assert(ITranslatable)
+assert(ITranslationManager)
