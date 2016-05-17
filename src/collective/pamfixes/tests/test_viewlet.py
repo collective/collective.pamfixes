@@ -7,9 +7,6 @@ try:
 except ImportError:
     import unittest
 
-# plone imports
-from plone.app.multilingual.browser.setup import SetupMultilingualSite
-
 # local imports
 from collective.pamfixes import testing
 from collective.pamfixes.viewlets import CustomAlternateLanguagesViewlet
@@ -23,10 +20,6 @@ class TestViewlet(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         self.app = self.layer['app']
-
-        # Setup language root folders
-        setup_tool = SetupMultilingualSite()
-        setup_tool.setupSite(self.portal)
 
     def test_viewlet_render(self):
         """Validate that the alternate languages viewlet renders correctly."""
