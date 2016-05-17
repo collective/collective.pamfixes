@@ -16,7 +16,7 @@ from collective.pamfixes.viewlets import CustomAlternateLanguagesViewlet
 
 
 class TestViewlet(unittest.TestCase):
-    """Validate setup process for ps.diazo.quito."""
+    """Validate setup process for collective.pamfixes."""
 
     layer = testing.COLLECTIVE_PAMFIXES_INTEGRATION_TESTING
 
