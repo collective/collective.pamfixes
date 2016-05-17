@@ -43,6 +43,7 @@ setup(
     ],
     extras_require={
         'test': [
+            'plone.app.multilingual[test]',
             'plone.app.testing',
         ],
     },
