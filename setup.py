@@ -38,7 +38,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'plone.app.multilingual<3.0',
+        'plone.app.multilingual',
         'setuptools',
     ],
     extras_require={
