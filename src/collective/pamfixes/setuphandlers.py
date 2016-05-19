@@ -15,6 +15,7 @@ from collective.pamfixes import logger
 
 TESTFIXTURE_ADD_ONS = [
     'archetypes.multilingual',
+    'plone.app.contenttypes',
     'plone.multilingualbehavior',
 ]
 
