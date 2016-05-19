@@ -7,6 +7,14 @@ try:
 except ImportError:
     import unittest
 
+# zope imports
+try:
+    from plone.app.multilingual.api import translate
+except ImportError:
+    from plone.app.multilingual.tests.utils import makeTranslation as translate
+
+from plone.app.multilingual.browser.viewlets import AlternateLanguagesViewlet
+
 # local imports
 from collective.pamfixes import testing
 from collective.pamfixes.viewlets import CustomAlternateLanguagesViewlet
@@ -23,25 +31,20 @@ class TestViewlet(unittest.TestCase):
 
     def test_viewlet_render(self):
         """Validate that the alternate languages viewlet renders correctly."""
-        viewlet = CustomAlternateLanguagesViewlet(
-            self.portal['en'],
+        sample_en = self.portal['en']['sample-folder']
+        sample_de = translate(sample_en, 'de')
+        viewlet_orig = AlternateLanguagesViewlet(
+            sample_de,
             self.app.REQUEST,
             None,
-        )
-        viewlet.update()
-        self.assertTrue(len(viewlet.alternates), 3)
-
-        viewlet = CustomAlternateLanguagesViewlet(
-            self.portal['es'],
-            self.app.REQUEST,
             None,
         )
-        viewlet.update()
-        self.assertTrue(len(viewlet.alternates), 3)
+        viewlet_orig.update()
 
         viewlet = CustomAlternateLanguagesViewlet(
-            self.portal['de'],
+            sample_de,
             self.app.REQUEST,
+            None,
             None,
         )
         viewlet.update()
