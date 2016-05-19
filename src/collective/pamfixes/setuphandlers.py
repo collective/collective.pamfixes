@@ -38,7 +38,9 @@ def post_install_testfixture(context):
     """Post install script for testfixture environments."""
     if is_not_testfixture_profile(context):
         return
+
     setup_pam(context)
+    setup_sample_content(context)
 
 
 def uninstall(context):
@@ -50,6 +52,22 @@ def is_not_testfixture_profile(context):
     return context.readDataFile(
         'collectivepamfixes_testfixture_marker.txt'
     ) is None
+
+
+def setup_sample_content(context):
+    """Setup sample content."""
+    portal = api.portal.get()
+    root_en = portal.get('en')
+
+    sample_folder = root_en.get('sample-folder')
+    if not sample_folder:
+        sample_folder = api.content.create(
+            container=root_en,
+            type='Folder',
+            id='sample-folder',
+            title=u'Sample Folder',
+            description=u'This folder was created for testing purposes',
+        )
 
 
 def setup_pam(context):
