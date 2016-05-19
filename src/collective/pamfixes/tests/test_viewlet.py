@@ -31,6 +31,15 @@ class TestViewlet(unittest.TestCase):
 
     def test_viewlet_render(self):
         """Validate that the alternate languages viewlet renders correctly."""
+        try:
+            from plone.app.multilingual.setuphandlers import (
+                enable_translatable_behavior,
+            )
+        except ImportError:
+            pass
+        else:
+            enable_translatable_behavior(self.portal)
+
         sample_en = self.portal['en']['sample-folder']
         sample_de = translate(sample_en, 'de')
         viewlet_orig = AlternateLanguagesViewlet(
