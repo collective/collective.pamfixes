@@ -14,7 +14,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='collective.pamfixes',
-    version='1.0a1',
+    version='1.0',
     description='An add-on for Plone that patches the alternate languages '
                 'viewlet in plone.app.multilingual to fix a bug in the '
                 'generation of the relative URLs that are used for the '
