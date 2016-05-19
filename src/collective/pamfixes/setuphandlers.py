@@ -91,8 +91,17 @@ def setup_pam(context):
             logger.info('Add-on {0} not available.'.format(add_on))
             continue
         if not qi.isProductInstalled(add_on):
-            qi.installProduct(add_on)
-            logger.info('Add-on {0} successfully installed.'.format(add_on))
+            try:
+                qi.installProduct(add_on)
+            except Exception:
+                logger.warning(
+                    'Add-on {0} could not be installed.'.format(add_on)
+                )
+                continue
+            else:
+                logger.info(
+                    'Add-on {0} successfully installed.'.format(add_on)
+                )
 
     # Define available languages
     language_tool = api.portal.get_tool(name='portal_languages')
