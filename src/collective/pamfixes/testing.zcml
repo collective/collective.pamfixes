@@ -1,9 +1,13 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
   <includeDependencies package="." />
-  <include package="plone.app.dexterity" />
+  <include package="plone.app.multilingual" />
+  <include package="archetypes.multilingual" zcml:condition="installed archetypes.multilingual" />
+  <include package="plone.app.dexterity" zcml:condition="installed plone.app.dexterity" />
+  <include package="plone.app.contenttypes" zcml:condition="installed plone.app.contenttypes" />
 
   <genericsetup:registerProfile
       name="testfixture"

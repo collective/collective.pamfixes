@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """Post install import steps for collective.pamfixes."""
 
+# python imports
+import pkg_resources
+
 # zope imports
 from Products.CMFPlone.interfaces import INonInstallable
 from plone import api
@@ -8,6 +11,12 @@ from zope.interface import implementer
 
 # local imports
 from collective.pamfixes import logger
+
+
+TESTFIXTURE_ADD_ONS = [
+    'archetypes.multilingual',
+    'plone.multilingualbehavior',
+]
 
 
 @implementer(INonInstallable)
@@ -53,6 +62,18 @@ def setup_pam(context):
             'The setup of a multilingual site is not possible.'
         )
         return
+
+    # Install required add-ons, if available
+    qi = api.portal.get_tool(name='portal_quickinstaller')
+    for add_on in TESTFIXTURE_ADD_ONS:
+        try:
+            pkg_resources.get_distribution(add_on)
+        except pkg_resources.DistributionNotFound:
+            logger.info('Add-on {0} not available.'.format(add_on))
+            continue
+        if not qi.isProductInstalled(add_on):
+            qi.installProduct(add_on)
+            logger.info('Add-on {0} successfully installed.'.format(add_on))
 
     # Define available languages
     language_tool = api.portal.get_tool(name='portal_languages')
