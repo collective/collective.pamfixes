@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1 (unreleased)
+1.1 (2016-06-16)
 ----------------
 
 - Add post path info to the alternate link urls.
