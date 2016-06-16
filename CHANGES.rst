@@ -5,7 +5,8 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add post path info to the alternate link urls.
+  [zcashero]
 
 
 1.0 (2016-05-19)
