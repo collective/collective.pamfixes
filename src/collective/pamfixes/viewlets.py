@@ -8,10 +8,10 @@ from pkg_resources import parse_version
 # Plone imports
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from plone.app.multilingual.browser.selector import getPostPath
 from plone.app.multilingual.browser.viewlets import (
-    _cache_until_catalog_change,
     AlternateLanguagesViewlet)
-from plone.memoize import ram
+from plone.memoize import ram, view
 from zope.component import getUtility
 
 # local imports
@@ -21,12 +21,29 @@ pam_distribution = pkg_resources.get_distribution('plone.app.multilingual')
 pam_version = pam_distribution.version
 
 
+def _cache_until_catalog_change_post_path(fun, self):
+    catalog = getToolByName(self.context, 'portal_catalog')
+    key = '{0}{1}{2}/{3}'
+    key = key.format(
+        fun.__name__,
+        catalog.getCounter(),
+        '/'.join(self.context.getPhysicalPath()),
+        self.post_path,
+    )
+    return key
+
+
 class CustomAlternateLanguagesViewlet(AlternateLanguagesViewlet):
     """Notify search engines about alternates languages of current content
     item.
     """
 
-    @ram.cache(_cache_until_catalog_change)
+    @property
+    @view.memoize
+    def post_path(self):
+        return getPostPath(self.context, self.request)
+
+    @ram.cache(_cache_until_catalog_change_post_path)
     def get_alternate_languages_pam_1_x(self):
         """Cache relative urls only. If we have multilingual sites and multi
         domain site caching absolute urls will result in very inefficient
@@ -51,6 +68,8 @@ class CustomAlternateLanguagesViewlet(AlternateLanguagesViewlet):
             if url.startswith(portal_path):
                 path_len += portal_path_len
             url = url[path_len:]
+            if self.post_path:
+                url = '/'.join([url.strip('/'), self.post_path.strip('/')])
             alternates.append({
                 'lang': item.Language,
                 'url': url.strip('/'),
@@ -58,7 +77,7 @@ class CustomAlternateLanguagesViewlet(AlternateLanguagesViewlet):
 
         return alternates
 
-    @ram.cache(_cache_until_catalog_change)
+    @ram.cache(_cache_until_catalog_change_post_path)
     def get_alternate_languages_pam_2_x(self):
         """Cache relative urls only. If we have multilingual sites and multi
         domain site caching absolute urls will result in very inefficient
@@ -80,6 +99,8 @@ class CustomAlternateLanguagesViewlet(AlternateLanguagesViewlet):
             if url.startswith(portal_path):
                 path_len += portal_path_len
             url = url[path_len:]
+            if self.post_path:
+                url = '/'.join([url.strip('/'), self.post_path.strip('/')])
             alternates.append({
                 'lang': item.Language,
                 'url': url.strip('/'),
